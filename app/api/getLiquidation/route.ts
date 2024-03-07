@@ -1,15 +1,43 @@
 import { PrismaClient } from "@prisma/client";
 import { NextRequest, NextResponse } from "next/server";
-import { settleBalances } from "./memberbalanses";
 
 const prisma = new PrismaClient();
 
-interface ExpenseDetails {
-  [key: string]: { memberId: string; amount: number };
-}
+type ExpenseDetails = {
+  [key: string]: {
+    memberId: string;
+    memberName: string;
+    amount: number;
+  };
+};
 
-interface MemberTotal {
-  [key: string]: { memberId: string; totalAmount: number };
+type MemberTotalArray = {
+  memberId: string;
+  memberName: string;
+  totalAmount: number;
+}[];
+type Settlement = {
+  fromId: string;
+  fromName: string;
+  toId: string;
+  toName: string;
+  amount: number;
+};
+
+type Member = {
+  memberId: string;
+  memberName: string;
+  totalAmount: number;
+};
+
+type AmountToSettle = number;
+
+function createSettlement(
+  fromMember: Member,
+  toMember: Member,
+  amountToSettle: AmountToSettle
+) {
+  // ...
 }
 
 export async function POST(req: NextRequest) {
@@ -28,38 +56,61 @@ export async function POST(req: NextRequest) {
     },
   });
 
-  const expenseDetails: ExpenseDetails = {};
+  const settlements: Settlement[] = [];
+
+  // Create a map to store the total amount owed by each member
+  const totalAmountMap: { [key: string]: number } = {};
 
   expenses.forEach((expense) => {
     expense.participants.forEach((participant) => {
-      const key = `${expense.expenseId}_${participant.member.name}`;
-      // Convert Decimal to number
-      const amountAsNumber = parseFloat(participant.amount.toString());
-      expenseDetails[key] = {
-        memberId: participant.member.memberId,
-        amount: amountAsNumber,
-      };
+      const memberId = participant.member.memberId;
+      const amount = parseFloat(participant.amount.toString());
+      totalAmountMap[memberId] = (totalAmountMap[memberId] || 0) + amount;
     });
   });
 
-  const memberTotal: MemberTotal = {};
+  // Generate settlements based on the total amounts
+  Object.keys(totalAmountMap).forEach((fromMemberId) => {
+    const fromMemberName = expenses
+      .flatMap((expense) => expense.participants)
+      .find((participant) => participant.member.memberId === fromMemberId)
+      ?.member.name;
 
-  // Calculate total amount for each member
-  for (const key in expenseDetails) {
-    const { memberId, amount } = expenseDetails[key];
-    const [, memberName] = key.split("_");
+    if (totalAmountMap[fromMemberId] < 0) {
+      Object.keys(totalAmountMap).forEach((toMemberId) => {
+        if (totalAmountMap[toMemberId] > 0) {
+          const settleAmount = Math.min(
+            -totalAmountMap[fromMemberId],
+            totalAmountMap[toMemberId]
+          );
 
-    // If the member already has an entry, add the amount; otherwise, initialize with the amount
-    if (!memberTotal[memberName]) {
-      memberTotal[memberName] = { memberId, totalAmount: 0 };
+          if (settleAmount !== 0) {
+            settlements.push({
+              fromId: fromMemberId,
+              fromName: fromMemberName!,
+              toId: toMemberId,
+              toName: expenses
+                .flatMap((expense) => expense.participants)
+                .find(
+                  (participant) => participant.member.memberId === toMemberId
+                )?.member.name!,
+              amount: settleAmount,
+            });
+
+            totalAmountMap[fromMemberId] += settleAmount;
+            totalAmountMap[toMemberId] -= settleAmount;
+          }
+
+          if (totalAmountMap[fromMemberId] === 0) {
+            return;
+          }
+        }
+      });
     }
+  });
 
-    memberTotal[memberName].totalAmount += amount;
-  }
-  const settlements = settleBalances(memberTotal);
   console.log(settlements);
-
-  //console.log(expenseDetails, memberTotal);
+  await prisma.$disconnect();
   return NextResponse.json({
     settlements,
   });

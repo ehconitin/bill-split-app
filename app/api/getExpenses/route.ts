@@ -88,8 +88,7 @@ export async function POST(req: NextRequest) {
 
   // Flatten the array
   const flattenedArray = Object.values(expenseMemberAmountMapping).flat();
-
-  console.log("flattenedArray", flattenedArray);
+  await prisma.$disconnect();
   return NextResponse.json({
     expenses: flattenedArray,
   });

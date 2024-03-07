@@ -96,7 +96,9 @@ export const ExpenseTable = (props: { groupId: string }) => {
                 <TableCell className="w-[280px]">
                   {expense.localTimestamp}
                 </TableCell>
-                <TableCell className="text-right">{expense.amount}</TableCell>
+                <TableCell className="text-right">
+                  {parseInt(expense.amount).toFixed(2)}
+                </TableCell>
                 <TableCell>
                   <DropdownMenu>
                     <DropdownMenuTrigger>
@@ -131,8 +133,8 @@ export const ExpenseTable = (props: { groupId: string }) => {
       <Table className="w-[720px] ">
         <TableFooter>
           <TableRow>
-            <TableCell className="w-[630px]">Total</TableCell>
-            <TableCell className="">₹{total}</TableCell>
+            <TableCell className="w-[620px]">Total</TableCell>
+            <TableCell className="">₹{total.toFixed(2)}</TableCell>
           </TableRow>
         </TableFooter>
       </Table>

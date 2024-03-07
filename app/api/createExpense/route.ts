@@ -90,7 +90,7 @@ export async function POST(req: NextRequest) {
     }
   });
   await Promise.all(createPromises);
-
+  await prisma.$disconnect();
   return NextResponse.json({
     message: "Expense created",
   });

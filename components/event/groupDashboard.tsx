@@ -47,7 +47,8 @@ const GroupDashboard = ({ id }: { id: string }) => {
       <div className="flex justify-center pt-10">
         <ExpenseTable groupId={groupId} />
       </div>
-      <div className="flex justify-center pt-10">
+
+      <div className="flex justify-center pt-5">
         <LiquidateTable groupId={groupId} />
       </div>
     </div>

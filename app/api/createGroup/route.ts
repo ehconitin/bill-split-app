@@ -23,6 +23,7 @@ export async function POST(req: NextRequest) {
     });
   });
   await Promise.all(createMembersPromises);
+  await prisma.$disconnect();
   const groupId = createGroup.groupId;
   return NextResponse.json({
     groupId,

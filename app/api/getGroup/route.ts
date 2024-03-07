@@ -23,7 +23,7 @@ export async function POST(req: NextRequest) {
       name: true,
     },
   });
-
+  await prisma.$disconnect();
   return NextResponse.json({
     groupDetails,
     memberNames,
