@@ -1,0 +1,49 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Group {
+  groupId String @id @default(uuid()) @unique
+  name    String
+  members Member[]
+  expenses Expense[]
+}
+
+model Member {
+  memberId String @id @default(uuid()) @unique
+  name     String
+  groupId  String
+  group    Group  @relation(fields: [groupId], references: [groupId])
+  expenses ExpenseParticipant[] 
+}
+
+model Expense {
+  expenseId     String              @id @default(uuid())
+  name          String
+  groupId       String
+  amount  Decimal
+  createdAt DateTime @default(now())
+  group         Group               @relation(fields: [groupId], references: [groupId])
+  participants  ExpenseParticipant[] 
+}
+
+model ExpenseParticipant {
+  id        String  @id @default(uuid())
+  expenseId String
+  memberId  String
+  expense   Expense @relation(fields: [expenseId], references: [expenseId])
+  member    Member  @relation(fields: [memberId], references: [memberId])
+  isLender  Boolean @default(false)
+  amount    Decimal
+}
