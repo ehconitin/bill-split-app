@@ -53,7 +53,7 @@ const AddExpense = ({ params }: { params: GroupIdParams }) => {
       .then((response: any) => {
         setMembers(response.data.memberNames);
       });
-  }, []);
+  }, [groupId]);
   return (
     <div>
       <GroupNameHeader id={id} />
@@ -115,7 +115,10 @@ const AddExpense = ({ params }: { params: GroupIdParams }) => {
                   <div className="flex justify-evenly py-3">
                     {members.map((member: { name: string }, index: number) => {
                       return (
-                        <div className="flex items-center space-x-2">
+                        <div
+                          key={index}
+                          className="flex items-center space-x-2"
+                        >
                           <Checkbox
                             id={member.name}
                             onClick={() => handleCheckboxChange(member.name)}

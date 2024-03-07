@@ -17,6 +17,8 @@ import { groupNameAtom } from "@/store/atoms/groupNameAtom";
 import { membersAtom, singleMemberAtom } from "@/store/atoms/membersAtom";
 import axios from "axios";
 import { useRouter } from "next/navigation";
+import { Toaster } from "../ui/toaster";
+import { toast } from "../ui/use-toast";
 
 const GroupForm = () => {
   const [groupName, setGroupName] = useRecoilState(groupNameAtom);
@@ -27,9 +29,13 @@ const GroupForm = () => {
 
   function addMembers() {
     if (singleMember) {
-      setMembers([...members, singleMember]);
-      setSingleMember("");
-      console.log(members);
+      if (members.includes(singleMember)) {
+        console.log("name already exists");
+      } else {
+        setMembers([...members, singleMember]);
+        setSingleMember("");
+        console.log(members);
+      }
     }
   }
 

@@ -1,4 +1,5 @@
 "use client";
+import EnterGroupId from "@/components/event/enterGroupId";
 import GroupForm from "@/components/event/groupForm";
 
 import React from "react";
@@ -10,6 +11,7 @@ const CreateEvent = () => {
       <div>
         <RecoilRoot>
           <GroupForm />
+          <EnterGroupId />
         </RecoilRoot>
       </div>
     </div>
