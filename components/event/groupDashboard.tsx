@@ -9,6 +9,7 @@ import { useRouter } from "next/navigation";
 
 import GroupNameHeader from "./groupNameHeader";
 import { ExpenseTable } from "./expenseTable";
+import LiquidateTable from "./liquidateTable";
 
 const GroupDashboard = ({ id }: { id: string }) => {
   const router = useRouter();
@@ -43,8 +44,11 @@ const GroupDashboard = ({ id }: { id: string }) => {
           Add expense
         </Button>
       </div>
-      <div className="flex justify-center pt-20">
+      <div className="flex justify-center pt-10">
         <ExpenseTable groupId={groupId} />
+      </div>
+      <div className="flex justify-center pt-10">
+        <LiquidateTable groupId={groupId} />
       </div>
     </div>
   );
