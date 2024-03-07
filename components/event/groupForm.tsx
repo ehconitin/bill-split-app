@@ -168,7 +168,7 @@ const GroupForm = () => {
           style={{ width: "500px" }}
         >
           {members.map((member, index) => (
-            <div className="py-1 px-0.5">
+            <div className="py-1 px-0.5" key={index}>
               <div
                 className="w-auto  border  border-black rounded-full text-black px-4 py-1 "
                 key={index}
