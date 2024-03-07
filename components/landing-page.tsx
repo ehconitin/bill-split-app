@@ -3,7 +3,6 @@
  * @see https://v0.dev/t/ehUdwBPBoYk
  */
 import Link from "next/link";
-import { Meteors } from "./ui/meteors";
 
 export function LandingPage() {
   return (
