@@ -16,7 +16,7 @@ type MemberTotalArray = {
   memberName: string;
   totalAmount: number;
 }[];
-type Settlement = {
+export type Settlement = {
   fromId: string;
   fromName: string;
   toId: string;
