@@ -100,13 +100,10 @@ const GroupForm = () => {
             onClick={async () => {
               console.log({ groupName, members });
               try {
-                const response = await axios.post(
-                  "http://localhost:3000/api/createGroup",
-                  {
-                    groupName,
-                    members,
-                  }
-                );
+                const response = await axios.post(`/api/createGroup`, {
+                  groupName,
+                  members,
+                });
                 const groupId = response.data.groupId;
                 console.log(response.data, groupId);
                 if (response) {

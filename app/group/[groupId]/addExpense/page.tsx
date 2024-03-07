@@ -48,11 +48,9 @@ const AddExpense = ({ params }: { params: GroupIdParams }) => {
   };
 
   useEffect(() => {
-    axios
-      .post("http://localhost:3000/api/getGroup", { groupId })
-      .then((response: any) => {
-        setMembers(response.data.memberNames);
-      });
+    axios.post("/api/getGroup", { groupId }).then((response: any) => {
+      setMembers(response.data.memberNames);
+    });
   }, [groupId]);
   return (
     <div>
@@ -143,7 +141,7 @@ const AddExpense = ({ params }: { params: GroupIdParams }) => {
             <Button
               onClick={() => {
                 axios
-                  .post("http://localhost:3000/api/createExpense", {
+                  .post("/api/createExpense", {
                     expenseName,
                     expenseAmount,
                     expenseBorrower,
@@ -153,7 +151,7 @@ const AddExpense = ({ params }: { params: GroupIdParams }) => {
                   .then((response: any) => {
                     console.log(response);
                     if (response.data.message) {
-                      router.replace(`http://localhost:3000/group/${groupId}`);
+                      router.replace(`/group/${groupId}`);
                     }
                   });
               }}

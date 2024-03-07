@@ -11,14 +11,12 @@ const GroupNameHeader = (props: { id: string }) => {
   const groupId = props.id;
 
   useEffect(() => {
-    axios
-      .post("http://localhost:3000/api/getGroup", { groupId })
-      .then((response: any) => {
-        setGroupName(response.data.groupDetails.name);
-        setGroupIdrecieved(response.data.groupDetails.groupId);
-        setMembers([]);
-        setMembers(response.data.memberNames);
-      });
+    axios.post("/api/getGroup", { groupId }).then((response: any) => {
+      setGroupName(response.data.groupDetails.name);
+      setGroupIdrecieved(response.data.groupDetails.groupId);
+      setMembers([]);
+      setMembers(response.data.memberNames);
+    });
   }, []);
   return (
     <div>

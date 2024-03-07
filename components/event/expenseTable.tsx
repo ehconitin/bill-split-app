@@ -41,7 +41,7 @@ export const ExpenseTable = (props: { groupId: string }) => {
 
   useEffect(() => {
     axios
-      .post("http://localhost:3000/api/getExpenses", { groupId })
+      .post("/api/getExpenses", { groupId })
       .then((response) => {
         // Use response.data.expenses directly for mapping and total calculation
         const expenses = response.data.expenses;

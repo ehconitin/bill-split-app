@@ -17,7 +17,7 @@ const LiquidateTable = (props: { groupId: string }) => {
   const groupId = props.groupId;
   useEffect(() => {
     axios
-      .post("http://localhost:3000/api/getLiquidation", { groupId })
+      .post("/api/getLiquidation", { groupId })
       .then((response) => {
         const settlementData: Settlement[] = response.data.settlements;
 
