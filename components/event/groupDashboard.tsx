@@ -1,12 +1,12 @@
 "use client";
-import { groupNameAtom } from "@/store/atoms/groupNameAtom";
+
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useRecoilValue } from "recoil";
 
 import { Button } from "../ui/button";
 import { useRouter } from "next/navigation";
-import { GroupIdParams } from "@/app/group/[groupId]/page";
+
 import GroupNameHeader from "./groupNameHeader";
 import { ExpenseTable } from "./expenseTable";
 
