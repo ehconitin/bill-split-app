@@ -127,7 +127,7 @@ const GroupForm = () => {
             </Button>
             <Button
               onClick={async () => {
-                if (!members.length && !groupName) {
+                if (!members.length || !groupName) {
                   toast({
                     title: "Oopsie Alert: Someone Missed the Memo!🤷‍♂️",
                   });
