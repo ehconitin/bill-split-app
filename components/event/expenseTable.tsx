@@ -37,6 +37,7 @@ export const ExpenseTable = (props: { groupId: string }) => {
   const [data, setData] = useState<ExpenseTable[]>();
   const [total, setTotal] = useState(0);
   const groupId = props.groupId;
+
   const clientTimezone = moment.tz.guess();
 
   useEffect(() => {
@@ -44,20 +45,27 @@ export const ExpenseTable = (props: { groupId: string }) => {
       .post("/api/getExpenses", { groupId })
       .then((response) => {
         // Use response.data.expenses directly for mapping and total calculation
-        const expenses = response.data.expenses;
-        setData(expenses);
 
-        let sum = 0;
-        expenses?.forEach((expense: any) => {
-          sum = sum + parseInt(expense.amount);
-        });
-        setTotal(sum);
-        const updatedExpenses = expenses.map((expense: any) => ({
-          ...expense,
-          localTimestamp: moment(expense.createdAt).tz(clientTimezone).format(),
-        }));
+        if (response.data.valid) {
+          const expenses = response.data.expenses;
+          setData(expenses);
 
-        setData(updatedExpenses);
+          let sum = 0;
+          expenses?.forEach((expense: any) => {
+            sum = sum + parseInt(expense.amount);
+          });
+          setTotal(sum);
+          const updatedExpenses = expenses.map((expense: any) => ({
+            ...expense,
+            localTimestamp: moment(expense.createdAt)
+              .tz(clientTimezone)
+              .format(),
+          }));
+
+          setData(updatedExpenses);
+        } else {
+          return <div>error</div>;
+        }
       })
 
       .catch((error) => {
@@ -65,7 +73,6 @@ export const ExpenseTable = (props: { groupId: string }) => {
       });
   }, [groupId]); // Include groupId as a dependency if it's used inside the effect
 
-  console.log("data", data);
   return (
     <div className="">
       <Table className="w-[720px] ">

@@ -1,7 +1,9 @@
 "use client";
 import GroupDashboard from "@/components/event/groupDashboard";
+import { ToastProvider } from "@/components/ui/toast";
+import axios from "axios";
 
-import React from "react";
+import React, { useEffect } from "react";
 import { RecoilRoot } from "recoil";
 
 export type GroupIdParams = {
@@ -9,11 +11,16 @@ export type GroupIdParams = {
 };
 
 const Group = ({ params }: { params: GroupIdParams }) => {
-  console.log(params.groupId);
+  const groupId = params.groupId;
+  useEffect(() => {
+    axios.post("/api/getGroup", { groupId }).then((response) => {});
+  }, []);
   return (
-    <RecoilRoot>
-      <GroupDashboard id={params.groupId} />
-    </RecoilRoot>
+    <ToastProvider>
+      <RecoilRoot>
+        <GroupDashboard id={params.groupId} />
+      </RecoilRoot>
+    </ToastProvider>
   );
 };
 

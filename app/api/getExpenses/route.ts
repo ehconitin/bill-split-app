@@ -14,7 +14,11 @@ export async function POST(req: NextRequest) {
       name: true,
     },
   });
-
+  if (groupDetails == null) {
+    return NextResponse.json({
+      valid: false,
+    });
+  }
   const memberNames = await prisma.member.findMany({
     where: {
       groupId,
@@ -91,5 +95,6 @@ export async function POST(req: NextRequest) {
   await prisma.$disconnect();
   return NextResponse.json({
     expenses: flattenedArray,
+    valid: true,
   });
 }

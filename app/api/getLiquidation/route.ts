@@ -109,7 +109,8 @@ export async function POST(req: NextRequest) {
     }
   });
 
-  console.log(settlements);
+  //console.log(settlements);
+  //console.log(totalAmountMap);
   await prisma.$disconnect();
   return NextResponse.json({
     settlements,

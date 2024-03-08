@@ -137,7 +137,14 @@ const AddExpense = ({ params }: { params: GroupIdParams }) => {
             </form>
           </CardContent>
           <CardFooter className="flex justify-between">
-            <Button variant="outline">Cancel</Button>
+            <Button
+              variant="outline"
+              onClick={() => {
+                router.replace(`/group/${groupId}`);
+              }}
+            >
+              Cancel
+            </Button>
             <Button
               onClick={() => {
                 axios
@@ -149,7 +156,6 @@ const AddExpense = ({ params }: { params: GroupIdParams }) => {
                     groupId,
                   })
                   .then((response: any) => {
-                    console.log(response);
                     if (response.data.message) {
                       router.replace(`/group/${groupId}`);
                     }

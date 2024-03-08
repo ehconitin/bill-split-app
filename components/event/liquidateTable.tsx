@@ -22,7 +22,6 @@ const LiquidateTable = (props: { groupId: string }) => {
         const settlementData: Settlement[] = response.data.settlements;
 
         setData(settlementData);
-        console.log(settlementData);
       })
 
       .catch((error) => {

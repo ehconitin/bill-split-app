@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   Card,
   CardContent,
@@ -21,14 +21,31 @@ import { useRouter } from "next/navigation";
 import { Toaster } from "../ui/toaster";
 
 import { useToast } from "../ui/use-toast";
+import { error } from "console";
 
-const GroupForm = () => {
+const EditGroupForm = (props: { groupId: string }) => {
   const [groupName, setGroupName] = useRecoilState(groupNameAtom);
   const [members, setMembers] = useRecoilState(membersAtom);
   const [singleMember, setSingleMember] = useRecoilState(singleMemberAtom);
+
   const { toast } = useToast();
   const router = useRouter();
+  const groupId = props.groupId;
+  useEffect(() => {
+    axios
+      .post("/api/getGroup", {
+        groupId,
+      })
+      .then((response: any) => {
+        setGroupName(response.data.groupDetails.name);
 
+        const dataMapping = response.data.memberNames.map(
+          (obj: any) => obj.name
+        );
+
+        setMembers([...dataMapping]);
+      });
+  }, []);
   function addMembers() {
     if (singleMember) {
       if (members.includes(singleMember)) {
@@ -54,9 +71,26 @@ const GroupForm = () => {
   function removeMember(index: number) {
     var temp = [...members];
 
+    let check = false;
     if (index > -1) {
-      temp.splice(index, 1);
-      setMembers(temp);
+      const memberName = members[index];
+      axios
+        .post("/api/getindividualExpense", { memberName, groupId })
+        .then((response: any) => {
+          check = response.data.settled;
+          if (check) {
+            temp.splice(index, 1);
+            setMembers(temp);
+          } else {
+            toast({
+              title: `${memberName} on the Hook: No Settlement, No Escape!`,
+              description: `Can't cut loose until the debt is settled. Brace yourself, ${memberName}! 💸🕵️‍♂️`,
+            });
+          }
+        })
+        .catch((error) => {
+          console.log("Error while fetching amount");
+        });
     }
   }
 
@@ -66,9 +100,9 @@ const GroupForm = () => {
       <div>
         <Card className="w-[500px]">
           <CardHeader>
-            <CardTitle>Create Group</CardTitle>
+            <CardTitle>Edit Group</CardTitle>
             <CardDescription>
-              Split and manage your bills easily.
+              Change group name, add or remove members
             </CardDescription>
           </CardHeader>
           <CardContent>
@@ -78,7 +112,7 @@ const GroupForm = () => {
                 <div className="flex">
                   <Input
                     id="name"
-                    placeholder="Name of your group"
+                    value={groupName}
                     onChange={(e) => {
                       setGroupName(e.target.value);
                     }}
@@ -90,14 +124,14 @@ const GroupForm = () => {
                 <div className="flex">
                   <Input
                     id="name"
-                    placeholder="Joe"
+                    placeholder=""
                     onChange={(e) => {
                       setSingleMember(e.target.value);
                     }}
                     className=" rounded-tr-none rounded-br-none"
                     value={singleMember}
                   ></Input>
-                  <div className="pl-0">
+                  <div className="">
                     <Button
                       variant="outline"
                       size="icon"
@@ -115,11 +149,7 @@ const GroupForm = () => {
             <Button
               variant="outline"
               onClick={() => {
-                toast({
-                  title: "404 Cheers: No Page, No Redirect, Just Empty Tabs",
-                  description:
-                    "Close the tab, my friend! No page to redirect you to – just an abyss of digital emptiness. Bottoms up to the void! 🚫🔗",
-                });
+                router.replace(`/group/${groupId}`);
               }}
             >
               Cancel
@@ -140,14 +170,15 @@ const GroupForm = () => {
                     });
                   } else {
                     try {
-                      const response = await axios.post(`/api/createGroup`, {
+                      const response = await axios.put(`/api/createGroup`, {
                         groupName,
                         members,
+                        groupId,
                       });
-                      const groupId = response.data.groupId;
+                      const groupIdreceived = response.data.groupId;
 
                       if (response) {
-                        router.replace(`/group/${groupId}`);
+                        router.replace(`/group/${groupIdreceived}`);
                       }
                     } catch (error) {
                       console.log("error");
@@ -156,7 +187,7 @@ const GroupForm = () => {
                 }
               }}
             >
-              Create
+              Confirm
             </Button>
           </CardFooter>
         </Card>
@@ -205,4 +236,4 @@ const GroupForm = () => {
   );
 };
 
-export default GroupForm;
+export default EditGroupForm;
