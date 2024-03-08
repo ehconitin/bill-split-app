@@ -18,9 +18,17 @@ const EnterGroupId = () => {
           router.replace(`/group/${groupId}`);
         } else {
           toast({
-            title: "invalid group id",
+            title: "Oops, Group ID Mismatch!",
+            description:
+              "Looks like someone played a round of ID mix-up. Please double-check the digits and try again. We're all about precision here! 🔍💼",
           });
         }
+      });
+    } else {
+      toast({
+        title: "Group ID Required",
+        description:
+          "Oops! It seems like you forgot to enter a group ID. Time to give those keyboard keys a workout! 💻🤔",
       });
     }
   }
