@@ -30,7 +30,7 @@ const LiquidateTable = (props: { groupId: string }) => {
   }, [groupId]);
   return (
     <div>
-      <Table>
+      <Table className="w-[380px] sm:w-[740px]">
         <TableHeader>
           <TableRow>
             <TableCell>How to liquidate</TableCell>
@@ -38,7 +38,7 @@ const LiquidateTable = (props: { groupId: string }) => {
         </TableHeader>
       </Table>
       <ScrollArea className="h-[200px]">
-        <Table className="w-[715px] ">
+        <Table className="w-[380px] sm:w-[740px] ">
           <TableBody>
             {data?.map((key) => (
               <TableRow key={key.fromId}>

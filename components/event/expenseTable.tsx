@@ -74,36 +74,56 @@ export const ExpenseTable = (props: { groupId: string }) => {
   }, [groupId]); // Include groupId as a dependency if it's used inside the effect
 
   return (
-    <div className="">
-      <Table className="w-[720px] ">
+    <div className=" ">
+      <Table className="w-[380px] sm:w-[740px] ">
         <TableHeader>
           <TableRow>
-            <TableHead className="w-[200px]">Expense Name</TableHead>
+            <TableHead className="w-[150px] sm:w-[200px]">
+              Expense Name
+            </TableHead>
             {/* <TableHead className="w-[346px]">Expense ID </TableHead> */}
-            <TableHead className="w-[150px]">Paid by</TableHead>
-            <TableHead className="w-[220px]">Created at</TableHead>
-            <TableHead className="text-right">Amount</TableHead>
-            <TableHead></TableHead>
+            <TableHead className="w-[100px] sm:w-[150px]">Paid by</TableHead>
+
+            <TableHead className="hidden sm:table-cell">Created at</TableHead>
+
+            <TableHead className="text-right w-[80px] sm:w-[182px]">
+              Amount
+            </TableHead>
+            <TableHead className="">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth="1.5"
+                stroke="currentColor"
+                className="w-3 h-3"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L6.832 19.82a4.5 4.5 0 0 1-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 0 1 1.13-1.897L16.863 4.487Zm0 0L19.5 7.125"
+                />
+              </svg>
+            </TableHead>
           </TableRow>
         </TableHeader>
       </Table>
       <ScrollArea className="h-[229px]">
-        <Table className="w-[740px] ">
+        <Table className="w-[380px] sm:w-[740px] ">
           <TableBody>
             {data?.map((expense) => (
               <TableRow key={expense.expenseId}>
-                <TableCell className="font-medium w-[200px]">
+                <TableCell className="font-medium w-[150px] sm:w-[200px]">
                   {expense.expenseName}
                 </TableCell>
-
                 {/* <TableCell className="w-[346px]">{expense.expenseId}</TableCell> */}
-                <TableCell className="w-[150px]">
+                <TableCell className="w-[100px] sm:w-[150px]">
                   {expense.lenderName}
                 </TableCell>
-                <TableCell className="w-[280px]">
+                <TableCell className="hidden sm:table-cell">
                   {expense.localTimestamp}
                 </TableCell>
-                <TableCell className="text-right">
+                <TableCell className="text-right ">
                   {parseInt(expense.amount).toFixed(2)}
                 </TableCell>
                 <TableCell>
@@ -137,11 +157,12 @@ export const ExpenseTable = (props: { groupId: string }) => {
           </TableBody>
         </Table>
       </ScrollArea>
-      <Table className="w-[700px] ">
+      <Table className="w-[380px] sm:w-[740px] ">
         <TableFooter>
           <TableRow>
-            <TableCell className="">Total</TableCell>
+            <TableCell className="w-[330px] sm:w-[690]">Total</TableCell>
             <TableCell className="text-right">₹{total.toFixed(2)}</TableCell>
+            <TableCell className="w-[60px] sm:w-[45px]"></TableCell>
           </TableRow>
         </TableFooter>
       </Table>

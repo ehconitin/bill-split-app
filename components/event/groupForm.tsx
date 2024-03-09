@@ -64,7 +64,7 @@ const GroupForm = () => {
     <div>
       <Toaster />
       <div>
-        <Card className="w-[500px]">
+        <Card className="w-[380px] sm:w-[500px]">
           <CardHeader>
             <CardTitle>Create Group</CardTitle>
             <CardDescription>
@@ -162,10 +162,7 @@ const GroupForm = () => {
         </Card>
       </div>
       <div>
-        <div
-          className="flex justify-center flex-wrap pt-10"
-          style={{ width: "500px" }}
-        >
+        <div className="flex justify-center flex-wrap pt-10 w-[380px] sm:w-[500px]">
           {members.map((member, index) => (
             <div className="py-1 px-0.5" key={index}>
               <div
