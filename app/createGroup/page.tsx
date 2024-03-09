@@ -8,7 +8,7 @@ import { RecoilRoot } from "recoil";
 
 const CreateEvent = () => {
   return (
-    <div className="flex pt-40 justify-center items-center ">
+    <div className="flex pt-20 justify-center items-center sm:pt-40 ">
       <div>
         <ToastProvider>
           <RecoilRoot>
