@@ -47,7 +47,7 @@ const GroupDashboard = ({ id }: { id: string }) => {
           </Button>
         </div>
         <div className="pl-1">
-          <CopyToClipboardComponent text="hi" />
+          <CopyToClipboardComponent text=`${groupId}` />
         </div>
       </div>
       <div className="flex justify-center pt-6">
