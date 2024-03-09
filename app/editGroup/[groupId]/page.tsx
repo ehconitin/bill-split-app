@@ -11,13 +11,11 @@ const CreateEvent = ({ params }: { params: GroupIdParams }) => {
   const groupId = params.groupId;
   return (
     <div className="flex pt-40 justify-center items-center ">
-      <div>
-        <ToastProvider>
-          <RecoilRoot>
-            <EditGroupForm groupId={groupId} />
-          </RecoilRoot>
-        </ToastProvider>
-      </div>
+      <ToastProvider>
+        <RecoilRoot>
+          <EditGroupForm groupId={groupId} />
+        </RecoilRoot>
+      </ToastProvider>
     </div>
   );
 };

@@ -97,7 +97,7 @@ const EditGroupForm = (props: { groupId: string }) => {
     <div>
       <Toaster />
       <div>
-        <Card className="w-[500px]">
+        <Card className="w-[350px] sm:w-[500px]">
           <CardHeader>
             <CardTitle>Edit Group</CardTitle>
             <CardDescription>
@@ -192,10 +192,7 @@ const EditGroupForm = (props: { groupId: string }) => {
         </Card>
       </div>
       <div>
-        <div
-          className="flex justify-center flex-wrap pt-10"
-          style={{ width: "500px" }}
-        >
+        <div className="flex justify-center flex-wrap pt-10 w-[350px] sm:w-[500px]">
           {members.map((member, index) => (
             <div className="py-1 px-0.5" key={index}>
               <div
