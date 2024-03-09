@@ -55,7 +55,7 @@ const AddExpense = ({ params }: { params: GroupIdParams }) => {
   return (
     <div>
       <div className="flex justify-center pt-10">
-        <Card className="w-[380px] sm:w-[500px]">
+        <Card className="w-[350px] sm:w-[500px]">
           <CardHeader>
             <CardTitle>Add expense</CardTitle>
           </CardHeader>

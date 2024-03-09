@@ -75,14 +75,14 @@ export const ExpenseTable = (props: { groupId: string }) => {
 
   return (
     <div className=" ">
-      <Table className="w-[380px] sm:w-[740px] ">
+      <Table className="w-[350px] sm:w-[740px] ">
         <TableHeader>
           <TableRow>
-            <TableHead className="w-[150px] sm:w-[200px]">
+            <TableHead className="w-[135px] sm:w-[200px]">
               Expense Name
             </TableHead>
             {/* <TableHead className="w-[346px]">Expense ID </TableHead> */}
-            <TableHead className="w-[100px] sm:w-[150px]">Paid by</TableHead>
+            <TableHead className="w-[85px] sm:w-[150px]">Paid by</TableHead>
 
             <TableHead className="hidden sm:table-cell">Created at</TableHead>
 
@@ -109,15 +109,15 @@ export const ExpenseTable = (props: { groupId: string }) => {
         </TableHeader>
       </Table>
       <ScrollArea className="h-[229px]">
-        <Table className="w-[380px] sm:w-[740px] ">
+        <Table className="w-[350px] sm:w-[740px] ">
           <TableBody>
             {data?.map((expense) => (
               <TableRow key={expense.expenseId}>
-                <TableCell className="font-medium w-[150px] sm:w-[200px]">
+                <TableCell className="font-medium w-[135px] sm:w-[200px]">
                   {expense.expenseName}
                 </TableCell>
                 {/* <TableCell className="w-[346px]">{expense.expenseId}</TableCell> */}
-                <TableCell className="w-[100px] sm:w-[150px]">
+                <TableCell className="w-[85px] sm:w-[150px]">
                   {expense.lenderName}
                 </TableCell>
                 <TableCell className="hidden sm:table-cell">
@@ -157,10 +157,10 @@ export const ExpenseTable = (props: { groupId: string }) => {
           </TableBody>
         </Table>
       </ScrollArea>
-      <Table className="w-[380px] sm:w-[740px] ">
+      <Table className="w-[350px] sm:w-[740px] ">
         <TableFooter>
           <TableRow>
-            <TableCell className="w-[330px] sm:w-[690]">Total</TableCell>
+            <TableCell className="w-[320px] sm:w-[690]">Total</TableCell>
             <TableCell className="text-right">₹{total.toFixed(2)}</TableCell>
             <TableCell className="w-[60px] sm:w-[45px]"></TableCell>
           </TableRow>

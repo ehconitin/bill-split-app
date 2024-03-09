@@ -30,7 +30,7 @@ const LiquidateTable = (props: { groupId: string }) => {
   }, [groupId]);
   return (
     <div>
-      <Table className="w-[380px] sm:w-[740px]">
+      <Table className="w-[350px] sm:w-[740px]">
         <TableHeader>
           <TableRow>
             <TableCell>How to liquidate</TableCell>
@@ -38,7 +38,7 @@ const LiquidateTable = (props: { groupId: string }) => {
         </TableHeader>
       </Table>
       <ScrollArea className="h-[200px]">
-        <Table className="w-[380px] sm:w-[740px] ">
+        <Table className="w-[350px] sm:w-[740px] ">
           <TableBody>
             {data?.map((key) => (
               <TableRow key={key.fromId}>
@@ -62,9 +62,11 @@ const LiquidateTable = (props: { groupId: string }) => {
                   </svg>
                 </TableCell>
 
-                <TableCell className="w-[325px] ">{key.toName}</TableCell>
+                <TableCell className="w-[300px] sm:w-[325px] ">
+                  {key.toName}
+                </TableCell>
 
-                <TableCell className="text-right">
+                <TableCell className="w-[230px]  sm:w-[170px] sm:text-right">
                   ₹{key.amount.toFixed(2)}
                 </TableCell>
                 <TableCell></TableCell>
