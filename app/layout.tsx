@@ -20,9 +20,11 @@ export default function RootLayout({
   return (
     <html lang="en" className="">
       <body className={inter.className}>
-        <div className="border-b bg-gray-900 h-20 text-white text-center text-5xl pt-3">
-          split
-        </div>
+        <a href="/">
+          <div className="border-b bg-gray-900 h-20 text-white text-center text-5xl pt-3">
+            split
+          </div>
+        </a>
         {children}
       </body>
     </html>
