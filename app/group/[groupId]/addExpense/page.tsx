@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import { GroupIdParams } from "../page";
-import GroupNameHeader from "@/components/event/groupNameHeader";
+
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -54,7 +54,6 @@ const AddExpense = ({ params }: { params: GroupIdParams }) => {
   }, [groupId]);
   return (
     <div>
-      <GroupNameHeader id={id} />
       <div className="flex justify-center pt-10">
         <Card className="w-[500px]">
           <CardHeader>

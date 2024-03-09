@@ -37,8 +37,8 @@ const LiquidateTable = (props: { groupId: string }) => {
           </TableRow>
         </TableHeader>
       </Table>
-      <ScrollArea className="h-[229px]">
-        <Table className="w-[740px] ">
+      <ScrollArea className="h-[200px]">
+        <Table className="w-[715px] ">
           <TableBody>
             {data?.map((key) => (
               <TableRow key={key.fromId}>

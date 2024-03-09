@@ -21,7 +21,6 @@ import { useRouter } from "next/navigation";
 import { Toaster } from "../ui/toaster";
 
 import { useToast } from "../ui/use-toast";
-import { error } from "console";
 
 const EditGroupForm = (props: { groupId: string }) => {
   const [groupName, setGroupName] = useRecoilState(groupNameAtom);

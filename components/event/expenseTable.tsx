@@ -137,11 +137,11 @@ export const ExpenseTable = (props: { groupId: string }) => {
           </TableBody>
         </Table>
       </ScrollArea>
-      <Table className="w-[720px] ">
+      <Table className="w-[700px] ">
         <TableFooter>
           <TableRow>
-            <TableCell className="w-[620px]">Total</TableCell>
-            <TableCell className="">₹{total.toFixed(2)}</TableCell>
+            <TableCell className="">Total</TableCell>
+            <TableCell className="text-right">₹{total.toFixed(2)}</TableCell>
           </TableRow>
         </TableFooter>
       </Table>
