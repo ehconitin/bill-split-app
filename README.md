@@ -1,4 +1,4 @@
-Split - The Easiest Way to Split Bills with Friends
+# Split - The Easiest Way to Split Bills with Friends
 Overview
 Welcome to Split, your hassle-free solution for splitting bills and expenses with friends. Say goodbye to complex calculations and awkward conversations about money. With Split, you can effortlessly create groups, add expenses, and settle up with your friends in just a few clicks.
 
